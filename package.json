@@ -3,15 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "mocha"
-
   },
   "dependencies": {
-    "express": "^4.18.2",
     "next": "14.0.3",
     "pg": "^8.11.3",
     "react": "^18",
