@@ -1,4 +1,4 @@
-import { createTicket, getTickets } from "../../../db"; // Adjust the path to your db file
+import { createTicket, getTickets } from "../../../db";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {

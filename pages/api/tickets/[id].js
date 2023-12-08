@@ -1,4 +1,4 @@
-import { updateTicketStatus } from "../../../db"; // Adjust the path to your db file
+import { updateTicketStatus } from "../../../db";
 
 export default async function handler(req, res) {
   const { id } = req.query;
