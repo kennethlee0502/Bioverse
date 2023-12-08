@@ -1,9 +1,10 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  host: "localhost",
-  database: "bioverse",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Necessary for Heroku PostgreSQL
+  },
 });
 
 // Function to create a new ticket
@@ -58,5 +59,4 @@ module.exports = {
   initializeDatabase,
 };
 
-// Call the initialize function
 initializeDatabase();
