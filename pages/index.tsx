@@ -8,7 +8,7 @@ const IndexPage = () => {
     email: "",
     description: "",
   });
-  const [error, setError] = useState(null); // State to handle errors
+  const [error, setError] = useState(""); // State to handle errors as a string
 
   // Function to fetch tickets from the server
   const fetchTickets = async () => {
@@ -17,12 +17,14 @@ const IndexPage = () => {
       if (response.ok) {
         const data = await response.json();
         setTickets(data);
-        setError(null); // Clear error if any
+        setError(""); // Clear error if any
       } else {
         throw new Error("Failed to fetch tickets");
       }
     } catch (err) {
-      setError(err.message);
+      setError(
+        err instanceof Error ? err.message : "An unexpected error occurred"
+      );
     }
   };
 
@@ -43,12 +45,14 @@ const IndexPage = () => {
       if (response.ok) {
         setNewTicket({ name: "", email: "", description: "" });
         await fetchTickets();
-        setError(null); // Clear error if any
+        setError(""); // Clear error if any
       } else {
         throw new Error("Failed to create a ticket");
       }
     } catch (err) {
-      setError(err.message);
+      setError(
+        err instanceof Error ? err.message : "An unexpected error occurred"
+      );
     }
   };
 
@@ -66,12 +70,14 @@ const IndexPage = () => {
             ticket.id === ticketId ? { ...ticket, status } : ticket
           )
         );
-        setError(null); // Clear error if any
+        setError(""); // Clear error if any
       } else {
         throw new Error("Failed to update ticket status");
       }
     } catch (err) {
-      setError(err.message);
+      setError(
+        err instanceof Error ? err.message : "An unexpected error occurred"
+      );
     }
   };
 
