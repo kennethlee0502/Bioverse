@@ -131,9 +131,7 @@ const IndexPage = () => {
             <p>Status: {ticket.status}</p>
             <select
               value={ticket.status}
-              onChange={(e) =>
-                updateTicketStatus(ticket.id, parseInt(e.target.value))
-              }
+              onChange={(e) => updateTicketStatus(ticket.id, e.target.value)}
             >
               <option value="New">New</option>
               <option value="In Progress">In Progress</option>
