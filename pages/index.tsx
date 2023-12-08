@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
 import "../styles/home.css";
 
+interface Ticket {
+  id: number;
+  name: string;
+  email: string;
+  description: string;
+  status: string;
+}
+
 const IndexPage = () => {
-  const [tickets, setTickets] = useState([]);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
   const [newTicket, setNewTicket] = useState({
     name: "",
     email: "",
     description: "",
   });
-  const [error, setError] = useState(""); // State to handle errors as a string
+  const [error, setError] = useState("");
 
-  // Function to fetch tickets from the server
   const fetchTickets = async () => {
     try {
       const response = await fetch("/api/tickets");
       if (response.ok) {
         const data = await response.json();
         setTickets(data);
-        setError(""); // Clear error if any
+        setError("");
       } else {
         throw new Error("Failed to fetch tickets");
       }
@@ -28,10 +35,10 @@ const IndexPage = () => {
     }
   };
 
-  // Fetch tickets on component mount
   useEffect(() => {
     fetchTickets();
   }, []);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -44,7 +51,7 @@ const IndexPage = () => {
       if (response.ok) {
         setNewTicket({ name: "", email: "", description: "" });
         await fetchTickets();
-        setError(""); // Clear error if any
+        setError("");
       } else {
         throw new Error("Failed to create a ticket");
       }
@@ -69,7 +76,7 @@ const IndexPage = () => {
             ticket.id === ticketId ? { ...ticket, status } : ticket
           )
         );
-        setError(""); // Clear error if any
+        setError("");
       } else {
         throw new Error("Failed to update ticket status");
       }
@@ -83,6 +90,8 @@ const IndexPage = () => {
   return (
     <div>
       <h1>Help Desk Ticket System</h1>
+
+      {error && <div style={{ color: "red" }}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
         <input
@@ -122,11 +131,13 @@ const IndexPage = () => {
             <p>Status: {ticket.status}</p>
             <select
               value={ticket.status}
-              onChange={(e) => updateTicketStatus(ticket.id, e.target.value)}
+              onChange={(e) =>
+                updateTicketStatus(ticket.id, parseInt(e.target.value))
+              }
             >
               <option value="New">New</option>
               <option value="In Progress">In Progress</option>
-              <option value="Resolved">Resolved</option>{" "}
+              <option value="Resolved">Resolved</option>
             </select>
           </div>
         ))}
