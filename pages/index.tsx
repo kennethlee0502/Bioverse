@@ -55,7 +55,7 @@ const IndexPage = () => {
     }
   };
 
-  const updateTicketStatus = async (ticketId, status) => {
+  const updateTicketStatus = async (ticketId: number, status: string) => {
     try {
       const response = await fetch(`/api/tickets/${ticketId}`, {
         method: "PUT",
