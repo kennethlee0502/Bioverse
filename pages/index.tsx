@@ -32,8 +32,7 @@ const IndexPage = () => {
   useEffect(() => {
     fetchTickets();
   }, []);
-
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const response = await fetch("/api/tickets", {
